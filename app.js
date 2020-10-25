@@ -8,7 +8,7 @@ const reset =document.querySelector(".reset")
 // Testing for click detections
 for(let i=0; i<tableCol.length; i++)
 {
-    console.log("I am HERE")
+    console.log("Total cells sir")
     tableCol[i].addEventListener("click",  (e) => {
         console.log(`${e.target.parentElement.rowIndex},${e.target.cellIndex}`)
     });
@@ -43,9 +43,42 @@ function changecolor(e){
             if(currentPlayer === 1){
                 row[0].style.backgroundColor = P1Color;
             }
+            winCheck();
+            //if(winCheck()){
+            //    return console.log(`${player1} Won`)
+            //}
+
         }
     }
 }
+function winCheck(){
+    //check the horizontal
+    for (let i=0;i<6;i++)//row
+    {
+        for (let j=0;j<7;j++)//Column
+        {
+            console.log(i,j,tableRow[i].children[j].style.backgroundColor)
+        //(0,0)->(0,1)->(0,2)->(0,3)->(0,4)......
+        //(1,0)->(1,1)->(1,2)......
+
+        /*if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
+            tableRow[i].children[j+1].style.backgroundColor == tableRow[i].children[j+2].style.backgroundColor &&
+             tableRow[i].children[j+2].style.backgroundColor == tableRow[i].children[j+3].style.backgroundColor &&
+              tableRow[i].children[j+3].style.backgroundColor == tableRow[i].children[j+4].style.backgroundColor)
+             {
+                 console.log("I made it here ")
+             }
+        return true;*/
+        }
+    }
+    }
+
+
+
+
+
+//checking for 4 in horizonal, vertical, diagonal
+
 // Create new game by whitening all the cells of the table 
 Array.prototype.forEach.call(tableCells,(cell)=>{
     cell.addEventListener("click",changecolor);
