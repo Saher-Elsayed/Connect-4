@@ -29,5 +29,13 @@ P1Color="red";
     console.log(player1,player2)
 
 //switching turns(Phase II)
+function chnagecolor(e){
+    
+}
+
 let currentPlayer=1;
 playerTurn.textContent=`${player1}'s turn`;
+Array.prototype.forEach.call(tableCells,(cell)=>{
+    cell.addEventListener("click",changecolor);
+    cell.style.background="white";
+});
