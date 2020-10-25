@@ -14,26 +14,39 @@ for(let i=0; i<tableCol.length; i++)
     });
 };
 
-p2Color="blue";
-P1Color="red";
+
 
 
 //adding names (Phase I)
-   /* while(!player1){
+    while(!player1){
         var player1=prompt("Player 1 name:")
     }
     while(!player2){
         var player2=prompt("player 2 name:")
     }
     console.log(player1,player2)
-*/
-//switching turns(Phase II)
-function chnagecolor(e){
-    
-}
+    p2Color="blue";
+    P1Color="red";
 
-let currentPlayer=1;
+//just printing the name of the player who is taking turn 
+let currentPlayer = 1;
 playerTurn.textContent=`${player1}'s turn`;
+
+//switching turns(Phase II)
+function changecolor(e){
+    let col =e.target.cellIndex;
+    let row=[];
+    for (let i=5;i>-1;i--)
+    {
+        if(tableRow[i].children[col].style.backgroundColor == "white"){
+            row.push(tableRow[i].children[col])
+            if(currentPlayer === 1){
+                row[0].style.backgroundColor = P1Color;
+            }
+        }
+    }
+}
+// Create new game by whitening all the cells of the table 
 Array.prototype.forEach.call(tableCells,(cell)=>{
     cell.addEventListener("click",changecolor);
     cell.style.background="white";
