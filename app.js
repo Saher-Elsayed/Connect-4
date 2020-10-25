@@ -51,24 +51,50 @@ function changecolor(e){
     }
     winCheck();
 }
+//checking for 4 in horizonal, vertical, diagonal
 function winCheck(){
     //check the horizontal
-    for (i=0;i<tableRow.length;i++)//row
+    for (i=0;i<6;i++)//row
     {
         for (j=0;j<7;j++)//Column
         {
-            console.log(i,j,tableRow[i].children[j].style.backgroundColor);
         //(0,0)->(0,1)->(0,2)->(0,3)->(0,4)......
         //(1,0)->(1,1)->(1,2)......
+        if(j<=2)
+        {
+            if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
+                tableRow[i].children[j+1].style.backgroundColor == tableRow[i].children[j+2].style.backgroundColor &&
+                tableRow[i].children[j+2].style.backgroundColor == tableRow[i].children[j+3].style.backgroundColor &&
+                tableRow[i].children[j+3].style.backgroundColor == tableRow[i].children[j+4].style.backgroundColor)
+            {
+                console.log("I made to the postive ");
+                console.log(i,j,tableRow[i].children[j].style.backgroundColor);
 
-        if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
-            tableRow[i].children[j+1].style.backgroundColor == tableRow[i].children[j+2].style.backgroundColor &&
-             tableRow[i].children[j+2].style.backgroundColor == tableRow[i].children[j+3].style.backgroundColor &&
-              tableRow[i].children[j+3].style.backgroundColor == tableRow[i].children[j+4].style.backgroundColor)
-             {
-                 console.log("I made it here ")
-             }
-  
+            }
+        }
+            else if (j>2 && j<6)
+            {
+                if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-1].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-2].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-3].style.backgroundColor)
+                {
+                    console.log("I made it to the negative");
+                    console.log(i,j,tableRow[i].children[j].style.backgroundColor);
+                }
+            }
+            else if(j=6)
+            {
+                if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-1].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-2].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-3].style.backgroundColor &&
+                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-4].style.backgroundColor )
+            {
+                console.log("left most bound brother")
+                console.log(i,j,tableRow[i].children[j].style.backgroundColor);
+
+            }
+            }
         }
     }
 return true;
@@ -78,7 +104,7 @@ return true;
 
 
 
-//checking for 4 in horizonal, vertical, diagonal
+
 
 // Create new game by whitening all the cells of the table 
 Array.prototype.forEach.call(tableCells,(cell)=>{
