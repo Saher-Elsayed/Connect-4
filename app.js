@@ -24,9 +24,9 @@ for(let i=0; i<tableCol.length; i++)
     while(!player2){
         var player2=prompt("player 2 name:")
     }
-    console.log(player1,player2)
-    p2Color="blue";
-    P1Color="red";
+    //console.log(player1,player2)
+  let P2Color="blue";
+  let P1Color="red";
 
 //just printing the name of the player who is taking turn 
 let currentPlayer = 1;
@@ -43,66 +43,52 @@ function changecolor(e){
             if(currentPlayer === 1){
                 row[0].style.backgroundColor = P1Color;
             }
-            //if(winCheck()){
-            //    return console.log(`${player1} Won`)
-            //}
-
+            if(winCheck()){
+                return alert(`${player1} WINS!!`)
+            }
+            
         }
     }
-    winCheck();
+    console.log(winCheck())
 }
 //checking for 4 in horizonal, vertical, diagonal
 function winCheck(){
-    //check the horizontal
-    for (i=0;i<6;i++)//row
-    {
-        for (j=0;j<7;j++)//Column
-        {
-        //(0,0)->(0,1)->(0,2)->(0,3)->(0,4)......
-        //(1,0)->(1,1)->(1,2)......
-        if(j<=2)
-        {
-            if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
-                tableRow[i].children[j+1].style.backgroundColor == tableRow[i].children[j+2].style.backgroundColor &&
-                tableRow[i].children[j+2].style.backgroundColor == tableRow[i].children[j+3].style.backgroundColor &&
-                tableRow[i].children[j+3].style.backgroundColor == tableRow[i].children[j+4].style.backgroundColor)
-            {
-                console.log("I made to the postive ");
-                console.log(i,j,tableRow[i].children[j].style.backgroundColor);
-
-            }
-        }
-            else if (j>2 && j<6)
-            {
-                if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j+1].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-1].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-2].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-3].style.backgroundColor)
-                {
-                    console.log("I made it to the negative");
-                    console.log(i,j,tableRow[i].children[j].style.backgroundColor);
-                }
-            }
-            else if(j=6)
-            {
-                if(tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-1].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-2].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-3].style.backgroundColor &&
-                tableRow[i].children[j].style.backgroundColor == tableRow[i].children[j-4].style.backgroundColor )
-            {
-                console.log("left most bound brother")
-                console.log(i,j,tableRow[i].children[j].style.backgroundColor);
-
-            }
+    let row = 6; 
+    let col =7; 
+    //horizontal check; 
+    for(let i =0; i<row;i++){
+        for(let j=0; j<col-3;j++){
+            let color = tableRow[i].children[j].style.backgroundColor; 
+            if(color !== "white" && tableRow[i].children[j+1].style.backgroundColor === color && tableRow[i].children[j+2].style.backgroundColor===color && tableRow[i].children[j+3].style.backgroundColor===color ){
+                return true; 
             }
         }
     }
-return true;
+
+    //vertical check
+    for(let i =0; i<row-3;i++){
+        for(let j =0; j<col;j++){
+            let color = tableRow[i].children[j].style.backgroundColor; 
+            if(color !== "white" && tableRow[i+1].children[j].style.backgroundColor === color && tableRow[i+2].children[j].style.backgroundColor===color && tableRow[i+3].children[j].style.backgroundColor===color){
+                console.log("reached");
+                return true; 
+            }
+        }
+    }
+    //Diagonal check
+    for(let i =0; i<row-3;i++){
+        for(let j =0; j<col;j++){
+            let color = tableRow[i].children[j].style.backgroundColor; 
+            if(color !== "white" && tableRow[i+1].children[j].style.backgroundColor === color && tableRow[i+2].children[j].style.backgroundColor===color && tableRow[i+3].children[j].style.backgroundColor===color){
+                console.log("reached");
+                return true; 
+            }
+        }
+    }
+
+    return false;
+
 }
-
-
-
-
 
 
 
@@ -111,3 +97,4 @@ Array.prototype.forEach.call(tableCells,(cell)=>{
     cell.addEventListener("click",changecolor);
     cell.style.background="white";
 });
+
