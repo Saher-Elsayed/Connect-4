@@ -76,13 +76,9 @@ function winCheck(){
             }
         }
     }*/
+
     //Diagonal check(Part 1) 
     /* 
-    *
-    **
-    ***
-    ****
-  
     for(let i =0; i<4;i++){
         for(let j =0; j<3;j++){
             let color = tableRow[j].children[i].style.backgroundColor; 
@@ -93,6 +89,16 @@ function winCheck(){
         }
     }
   */
+     //Diagonal check(Part 2) 
+    for(let i =0; i<4; i++){
+        for(let j =5; j>2; j--){
+            let color = tableRow[j].children[i].style.backgroundColor; 
+            if(color !== "white" && tableRow[j-1].children[i+1].style.backgroundColor === color && tableRow[j-2].children[i+2].style.backgroundColor===color && tableRow[j-3].children[i+3].style.backgroundColor===color){
+                console.log("reached");
+                return true; 
+        }
+    }
+}
     return false;
 
 }
