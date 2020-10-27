@@ -15,8 +15,6 @@ for(let i=0; i<tableCol.length; i++)
 };
 
 
-
-
 //adding names (Phase I)
     while(!player1){
         var player1=prompt("Player 1 name:")
@@ -41,22 +39,49 @@ function changecolor(e){
         if(tableRow[i].children[col].style.backgroundColor == "white"){
             row.push(tableRow[i].children[col])
             if(currentPlayer === 1){
-                row[0].style.backgroundColor = P1Color;
+                row[0].style.backgroundColor = "red";
+                if(winCheck())
+                {
+                    return alert(`${player1} Win`);
+                }
+                else if(turnCheck)
+                {
+                    playerTurn.textContent = 'DRAW!';
+                    return alert('DRAW!');
+                }
+                else
+                {
+                    playerTurn.textContent = `${player1} turn`;
+                    return currentPlayer = 2;
+                }
             }
-            if(winCheck()){
-                return alert(`${player1} WINS!!`)
+        }
+        else{
+            row[0].style.backgroundColor = "blue";
+            if(winCheck())
+            {
+                return alert(`${player2} Win`)
             }
-            
+            else if(turnCheck)
+            {
+                playerTurn.textContent = 'DRAW!';
+                return alert('DRAW!');
+            }
+            else
+            {
+                playerTurn.textContent = `${player2} turn`
+                return currentPlayer = 1;
+            }
         }
     }
-    console.log(winCheck())
+    //console.log(winCheck())
 }
+
 //checking for 4 in horizonal, vertical, diagonal
 function winCheck(){
     let row = 6; 
     let col =7; 
     //horizontal check;
-    /* 
     for(let i =0; i<row;i++){
         for(let j=0; j<col-3;j++){
             let color = tableRow[i].children[j].style.backgroundColor; 
@@ -75,11 +100,9 @@ function winCheck(){
                 return true; 
             }
         }
-    }*/
-
+    }
     //Diagonal check(Part 1) 
-    /* 
-    for(let i =0; i<4;i++){
+    for(let i =0; i<col-3;i++){
         for(let j =0; j<3;j++){
             let color = tableRow[j].children[i].style.backgroundColor; 
             if(color !== "white" && tableRow[j+1].children[i+1].style.backgroundColor === color && tableRow[j+2].children[i+2].style.backgroundColor===color && tableRow[j+3].children[i+3].style.backgroundColor===color){
@@ -88,9 +111,9 @@ function winCheck(){
             }
         }
     }
-  */
+
      //Diagonal check(Part 2) 
-    for(let i =0; i<4; i++){
+    for(let i =0; i<col-3; i++){
         for(let j =5; j>2; j--){
             let color = tableRow[j].children[i].style.backgroundColor; 
             if(color !== "white" && tableRow[j-1].children[i+1].style.backgroundColor === color && tableRow[j-2].children[i+2].style.backgroundColor===color && tableRow[j-3].children[i+3].style.backgroundColor===color){
@@ -102,12 +125,22 @@ function winCheck(){
     return false;
 
 }
-
-
+function turnCheck(){
+    let full=[];
+    for(i=0;i<tableCol.length; i++){
+        if(tableCol[i].style.backgroundColor !=="white")
+        {
+            full.push(tableCol[i]);
+        }
+    }
+    if(full.length === tableCol.length)
+    {
+        return true
+    }
+}
 
 // Create new game by whitening all the cells of the table 
 Array.prototype.forEach.call(tableCells,(cell)=>{
     cell.addEventListener("click",changecolor);
     cell.style.background="white";
-});
-
+})
