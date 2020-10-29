@@ -1,7 +1,6 @@
-var tableRow =document.getElementsByTagName("tr");
-var tableCol =document.getElementsByTagName("td");
-
-var  playerTurn=document.querySelector(".playerTurn");
+let tableRow =document.getElementsByTagName("tr");
+let tableCol =document.getElementsByTagName("td");
+let  playerTurn=document.querySelector(".playerTurn");
 const tableCells =document.querySelectorAll(".tableCell");
 const reset =document.querySelector(".reset")
 
@@ -17,10 +16,10 @@ for(let i=0; i<tableCol.length; i++)
 
 //adding names (Phase I)
     while(!player1){
-        var player1=prompt("Player 1 name:")
+        var player1=prompt("Player 1 name:");
     }
     while(!player2){
-        var player2=prompt("player 2 name:")
+        var player2=prompt("player 2 name:");
     }
     //console.log(player1,player2)
   let P2Color="blue";
@@ -28,68 +27,70 @@ for(let i=0; i<tableCol.length; i++)
 
 //just printing the name of the player who is taking turn 
 let currentPlayer = 1;
+let isPlayerOne = true; 
 playerTurn.textContent=`${player1}'s turn`;
+
+
+
+const isFullBoard = ()=>{
+    let row = 6; 
+    let col =7; 
+    for(let i =0; i<row;i++){
+        for(let j=0; j<col;j++){
+            let color = tableRow[i].children[j].style.backgroundColor;
+            if(color === "white"){
+                return false; 
+            }
+        }
+    } 
+    return true; 
+}
+
+const resetBoard = ()=>{
+    tableCells.forEach((cell)=>{
+        cell.style.background="white";
+    });
+    isPlayerOne= true; 
+}
 
 //switching turns(Phase II)
 function changecolor(e){
+   
     let col =e.target.cellIndex;
+
+    let currentPlayer = isPlayerOne ? player1 : player2; 
+    let properColor = isPlayerOne ? P1Color : P2Color; 
     let row=[];
-    for (let i=5;i>-1;i--)//FROM NULL TO 5 (check to the bottom to top)
+    for (let i=5;i>-1;i--)//FROM NULL TO 5 (check from the bottom to top)
     {
         if(tableRow[i].children[col].style.backgroundColor == "white")
         {
             row.push(tableRow[i].children[col])
-            if(currentPlayer === 1)
+            row[0].style.backgroundColor = properColor;
+            console.log(`${currentPlayer} turn`)
+            
+            if (winCheck())
             {
-                row[0].style.backgroundColor = P1Color;
-                console.log(`${player1} turn`)
-                
-                if (winCheck())
-                {
-                    alert(`${player2} Won`)
+                alert(`${currentPlayer} Won`)
+                resetBoard();
+                if(tableCells[i]){
+                    tableCells[i][col].backgroundColor = "white";
                 }
-                return currentPlayer=2;
-                /*if(winCheck())
-                {
-                    return alert(`${player1} Win`);
-                }
-                else if(turnCheck())
-                {
-                    playerTurn.textContent = 'DRAW!';
-                    return alert('DRAW!');
-                }*/
+                break; 
             }
-            else
-            {
-                row[0].style.backgroundColor = P2Color;
-                console.log(`${player2} turn`)
-                if (winCheck())
-                {
-                    alert(`${player2} Won`)
-                }
-                return currentPlayer=1;
+            else if(isFullBoard()){
+                alert("No winner!"); 
+                resetBoard(); 
+                break; 
+            }else{
+                isPlayerOne = !isPlayerOne; 
+                break; 
             }
+
+
         }
-    /*else
-        {
-            row[0].style.backgroundColor = "blue";
-                if(winCheck())
-                {
-                    return alert(`${player2} Win`)
-                }
-                else if(turnCheck())
-                {
-                    playerTurn.textContent = 'DRAW!';
-                    return alert('DRAW!');
-                }
-                else
-                {
-                    playerTurn.textContent = `${player2} turn`
-                    return currentPlayer = 1;
-                }
-        }*/
     }
-    //console.log(winCheck())
+  
 }
 
 //checking for 4 in horizonal, vertical, diagonal
@@ -140,22 +141,8 @@ function winCheck(){
     return false;
 
 }
-function turnCheck(){
-    let full=[];
-    for(i=0;i<tableCol.length; i++){
-        if(tableCol[i].style.backgroundColor !=="white")
-        {
-            full.push(tableCol[i]);
-        }
-    }
-    if(full.length === tableCol.length)
-    {
-        return true
-    }
-}
-
 // Create new game by whitening all the cells of the table 
-Array.prototype.forEach.call(tableCells,(cell)=>{
+tableCells.forEach((cell)=>{
     cell.addEventListener("click",changecolor);
     cell.style.background="white";
-})
+});
