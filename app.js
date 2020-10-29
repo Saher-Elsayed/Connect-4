@@ -43,6 +43,11 @@ function changecolor(e){
             {
                 row[0].style.backgroundColor = P1Color;
                 console.log(`${player1} turn`)
+                
+                if (winCheck())
+                {
+                    alert(`${player2} Won`)
+                }
                 return currentPlayer=2;
                 /*if(winCheck())
                 {
@@ -58,6 +63,10 @@ function changecolor(e){
             {
                 row[0].style.backgroundColor = P2Color;
                 console.log(`${player2} turn`)
+                if (winCheck())
+                {
+                    alert(`${player2} Won`)
+                }
                 return currentPlayer=1;
             }
         }
