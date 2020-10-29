@@ -34,45 +34,51 @@ playerTurn.textContent=`${player1}'s turn`;
 function changecolor(e){
     let col =e.target.cellIndex;
     let row=[];
-    for (let i=5;i>-1;i--)
+    for (let i=5;i>-1;i--)//FROM NULL TO 5 (check to the bottom to top)
     {
-        if(tableRow[i].children[col].style.backgroundColor == "white"){
+        if(tableRow[i].children[col].style.backgroundColor == "white")
+        {
             row.push(tableRow[i].children[col])
-            if(currentPlayer === 1){
-                row[0].style.backgroundColor = "red";
-                if(winCheck())
+            if(currentPlayer === 1)
+            {
+                row[0].style.backgroundColor = P1Color;
+                console.log(`${player1} turn`)
+                return currentPlayer=2;
+                /*if(winCheck())
                 {
                     return alert(`${player1} Win`);
                 }
-                else if(turnCheck)
+                else if(turnCheck())
+                {
+                    playerTurn.textContent = 'DRAW!';
+                    return alert('DRAW!');
+                }*/
+            }
+            else
+            {
+                row[0].style.backgroundColor = P2Color;
+                console.log(`${player2} turn`)
+                return currentPlayer=1;
+            }
+        }
+    /*else
+        {
+            row[0].style.backgroundColor = "blue";
+                if(winCheck())
+                {
+                    return alert(`${player2} Win`)
+                }
+                else if(turnCheck())
                 {
                     playerTurn.textContent = 'DRAW!';
                     return alert('DRAW!');
                 }
                 else
                 {
-                    playerTurn.textContent = `${player1} turn`;
-                    return currentPlayer = 2;
+                    playerTurn.textContent = `${player2} turn`
+                    return currentPlayer = 1;
                 }
-            }
-        }
-        else{
-            row[0].style.backgroundColor = "blue";
-            if(winCheck())
-            {
-                return alert(`${player2} Win`)
-            }
-            else if(turnCheck)
-            {
-                playerTurn.textContent = 'DRAW!';
-                return alert('DRAW!');
-            }
-            else
-            {
-                playerTurn.textContent = `${player2} turn`
-                return currentPlayer = 1;
-            }
-        }
+        }*/
     }
     //console.log(winCheck())
 }
