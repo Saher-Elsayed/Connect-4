@@ -57,18 +57,19 @@ const resetBoard = ()=>{
 function changecolor(e){
    
     let col =e.target.cellIndex;
-
     let currentPlayer = isPlayerOne ? player1 : player2; 
     let properColor = isPlayerOne ? P1Color : P2Color; 
     let row=[];
     for (let i=5;i>-1;i--)//FROM NULL TO 5 (check from the bottom to top)
     {
+       
         if(tableRow[i].children[col].style.backgroundColor == "white")
-        {
-            row.push(tableRow[i].children[col])
+        {   
+            playerTurn.textContent = `${currentPlayer} played`;
+            row.push(tableRow[i].children[col]);
             row[0].style.backgroundColor = properColor;
-            console.log(`${currentPlayer} turn`)
-            
+            console.log(`${currentPlayer} turn`);
+
             if (winCheck())
             {
                 alert(`${currentPlayer} Won`)
@@ -86,14 +87,12 @@ function changecolor(e){
                 isPlayerOne = !isPlayerOne; 
                 break; 
             }
-
-
         }
     }
   
 }
 
-//checking for 4 in horizonal, vertical, diagonal
+//checking for 4 in horizonal, vertical, diagonals
 function winCheck(){
     let row = 6; 
     let col =7; 
@@ -139,7 +138,6 @@ function winCheck(){
     }
 }
     return false;
-
 }
 // Create new game by whitening all the cells of the table 
 tableCells.forEach((cell)=>{

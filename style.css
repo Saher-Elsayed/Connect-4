@@ -3,7 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.playerTurn {
+  position: absolute;
+  text-align: center;
+  left: 46%;
+  right: 50%;
+  top: 80%;
+  width: 10rem;
+}
 .Table {
   position: absolute;
   top: 5rem;
@@ -32,7 +39,7 @@ h1 {
 .reset {
   position: absolute;
   text-align: center;
-  left: 50%;
+  left: 48%;
   right: 50%;
   border: 1px solid black;
   width: 4rem;
